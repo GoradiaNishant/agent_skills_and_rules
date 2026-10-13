@@ -15,7 +15,7 @@
 set -e
 
 # Default GitHub Repo (Override via GITHUB_REPO env var if needed)
-REPO_URL="${GITHUB_REPO:-https://github.com/firdos/agent_skills_and_rules.git}"
+REPO_URL="${GITHUB_REPO:-https://github.com/Nishant-commits/agent_skills_and_rules.git}"
 PLATFORM=""
 USE_SYMLINK=false
 
