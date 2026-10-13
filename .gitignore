@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE & Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Antigravity Brain Scratch / Logs
+brain/
+scratch/
+*.log
+
+# Git
+.git/
