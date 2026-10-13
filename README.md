@@ -56,12 +56,12 @@ When you create a new Android or Flutter project, open the terminal in that proj
 
 #### For an Android Project:
 ```bash
-curl -sSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/agent_skills_and_rules/main/install.sh | bash -s -- android
+curl -sSL https://raw.githubusercontent.com/Nishant-commits/agent_skills_and_rules/main/install.sh | bash -s -- android
 ```
 
 #### For a Flutter Project:
 ```bash
-curl -sSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/agent_skills_and_rules/main/install.sh | bash -s -- flutter
+curl -sSL https://raw.githubusercontent.com/Nishant-commits/agent_skills_and_rules/main/install.sh | bash -s -- flutter
 ```
 
 > **Local Symlink Option (Live Updates on your Mac):**
@@ -95,7 +95,7 @@ If you want the `.agents/` folder committed to your project's repository so team
 
 ```bash
 # In your project root:
-git submodule add https://github.com/<YOUR_GITHUB_USERNAME>/agent_skills_and_rules.git .agents-repo
+git submodule add https://github.com/Nishant-commits/agent_skills_and_rules.git .agents-repo
 
 # Link the appropriate platform:
 ln -s .agents-repo/android_rules_skills/.agents .agents   # For Android
@@ -114,7 +114,7 @@ git commit -m "chore: add agent skills and rules submodule"
 2. Run the following commands in this directory:
 
 ```bash
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/agent_skills_and_rules.git
+git remote add origin https://github.com/Nishant-commits/agent_skills_and_rules.git
 git branch -M main
 git push -u origin main
 ```
