@@ -4,9 +4,13 @@ A standardized, production-ready suite of architectural rules, progressive skill
 
 ---
 
-## Architecture Blueprint: The Three-Tier Standard
+## Architecture Blueprint: Clean Architecture & Modern App Architecture (MAD)
 
-Both Android and Flutter repositories follow an identical three-tier architectural standard:
+Both Android and Flutter repositories follow Google's official **Modern App Architecture (MAD)** combined with **Clean Architecture principles**:
+
+- **UI Layer (Presentation)**: Pure composables / widgets, ViewModels with Unidirectional Data Flow (`UiState`, `UiEvent`), and decoupled navigation.
+- **Domain Layer (Optional)**: Business use cases, domain entities, and repository contracts with zero framework dependencies.
+- **Data Layer (Single Source of Truth)**: Repositories coordinating remote APIs (Retrofit / Dio) and local persistence (Room / Drift / DataStore).
 
 ```text
 ├── core/
@@ -39,7 +43,7 @@ agent_skills_and_rules/
 ├── android_rules_skills/
 │   └── .agents/
 │       ├── rules/                 # 14 Android development rules (00 to 90)
-│       └── skills/                # 9 Android skills with Kotlin templates
+│       └── skills/                # 10 Android skills with Kotlin templates
 └── flutter_rules_skills/
     └── .agents/
         ├── rules/                 # 14 Flutter development rules (00 to 90)

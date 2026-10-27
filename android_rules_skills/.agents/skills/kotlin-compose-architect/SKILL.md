@@ -76,13 +76,17 @@ Require inspection of:
 
 ### For Navigation & Routing
 Read:
+- `@../skills/android-navigation-architecture/SKILL.md`
+- `@../rules/60-navigation.md`
 - [references/03-architecture-decisions.md](./references/03-architecture-decisions.md)
 - [references/10-compose-ui-rules.md](./references/10-compose-ui-rules.md)
 
 Require:
-- Type-safe routes (Navigation 2.8+ `@Serializable` objects/classes or route constants)
-- Central `AppNavHost.kt` registration
-- Decoupled event callbacks (do NOT pass `NavController` into screen composables)
+- Type-safe routes (Navigation 2.8+ `@Serializable` objects/classes, `DynamicScreen<T>`, or `Screen`)
+- Decoupled `Navigator` (@ActivityRetainedScoped) + `NavHandler` bridge; never pass `NavController` into ViewModels or deep into child composables
+- Route vs. Screen separation (`<Feature>Route` for VM/lifecycle, `<Feature>Screen` for stateless UI)
+- Typed argument extraction via `savedStateHandle.getArguments<T>()` and immediate consumption of backstack results (`savedStateHandle.remove<T>()`)
+- Central navigation registration with animated transitions via `navComposable()`
 
 ### For Notifications, Push Messaging (FCM) & Deep Links
 Read:

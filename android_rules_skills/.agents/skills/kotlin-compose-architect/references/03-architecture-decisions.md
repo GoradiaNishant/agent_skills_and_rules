@@ -5,50 +5,115 @@ independently — do not apply all of them automatically.
 
 ---
 
-## Clean Architecture & Three-Tier Organization
+## Clean Architecture & Modern Android Architecture (MAD) Standards
 
-Structure Android applications using a clear three-tier separation (`core/`, `shared/`, `features/`):
+Structure Android applications following Google's official **Modern Android Development (MAD) Guide to App Architecture** combined with **Clean Architecture principles**.
+
+### 1. The Three Architectural Layers
+
+Android applications are organized into up to three distinct layers with a strict unidirectional dependency rule:
+
+```text
+┌────────────────────────────────────────────────────────┐
+│                   UI Layer (Presentation)              │
+│  - Composables: <Feature>Route & <Feature>Screen       │
+│  - State Holders: ViewModels exposing StateFlow<UiState>│
+│  - Decoupled Navigator & SavedStateHandle in VM       │
+└───────────────────────────┬────────────────────────────┘
+                            │ depends on (calls)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│               Domain Layer (Optional)                  │
+│  - UseCases / Interactors (pure Kotlin business logic)  │
+│  - Domain Models & Business Validation Rules           │
+│  - Repository Interfaces (contracts)                   │
+│  - Zero Android framework dependencies (no Context)    │
+└───────────────────────────┬────────────────────────────┘
+                            │ depends on (calls)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                 Data Layer (Single Source of Truth)    │
+│  - Repositories: Coordinate data sources & expose Flow  │
+│  - Remote Data Source: Retrofit / OkHttp / Sockets     │
+│  - Local Data Source: Room Database / DataStore Prefs  │
+│  - DTOs, Room Entities, and Data Mappers               │
+└────────────────────────────────────────────────────────┘
+```
+
+#### Strict Dependency Rule:
+- **Dependencies flow strictly inward**: UI depends on Domain and Data; Domain depends on Data contracts; Data never depends on Domain or UI.
+- **UI Independence**: UI Composables and ViewModels never touch Room Entities, SQL queries, Retrofit interfaces, or raw HTTP status codes.
+- **Single Source of Truth (SSOT)**: Repositories in the Data Layer serve as the single source of truth for all application data, caching remote responses into local storage and exposing reactive `Flow<T>`.
+
+---
+
+### 2. Modern Package & Module Organization Standards
+
+Avoid catch-all `shared/` or `common/` dumping grounds. In modern Android development, select one of two proven, standard organizational structures based on app size:
+
+#### Standard A: Feature-First Architecture (Recommended for Scalable / Multi-Module Apps)
+Features own their user journey and presentation; core infrastructure is partitioned into focused, single-responsibility modules or packages:
 
 ```text
 app/src/main/java/com/yourpackage/
 ├── core/
-│   ├── di/                 # Central Hilt modules (NetworkModule, DatabaseModule)
-│   ├── network/            # OkHttp, Retrofit clients, NetworkResult, Interceptors
-│   ├── session/            # SessionManager, TokenProvider, TokenAuthenticator
-│   ├── monitoring/         # AppLogger with timers, CrashReporter, AnalyticsTracker
-│   └── errors/             # GlobalErrorHandler, ApiErrorParser
-│
-├── shared/
-│   ├── data/
-│   │   └── models/         # Cross-feature DTO models (UserModel.kt, AddressModel.kt, PaginationModel.kt)
-│   ├── domain/
-│   │   └── entities/       # Cross-feature domain entities (User.kt, Address.kt, PaginatedResult.kt)
-│   ├── ui/                 # Reusable design system Composables, buttons, text fields, theme tokens
-│   └── utils/              # General extensions, formatters, DateTime utilities
+│   ├── common/             # Coroutine dispatchers, formatters, universal extensions
+│   ├── database/           # Room database, DAOs, entities, type converters
+│   ├── datastore/          # DataStore preferences & user settings storage
+│   ├── designsystem/       # Material 3 tokens, theme, AppButton, AppTextField, custom components
+│   ├── model/              # Shared domain models & universal business entities
+│   ├── navigation/         # Destination, Navigator, NavHandler, NavUtils, SerializableNavType
+│   ├── network/            # Retrofit/OkHttp clients, interceptors, NetworkResult, token auth
+│   └── session/            # UserSessionManager, SessionStorage
 │
 └── features/
     ├── auth/
-    │   ├── data/           # Remote API, auth DTOs, repository implementations
-    │   ├── domain/         # Repository contracts, auth entities, use cases
-    │   └── presentation/   # Composables, screens, AuthViewModel, AuthUiState
-    │
-    ├── profile/
+    │   ├── data/           # Auth API service, auth DTOs, AuthRepositoryImpl
+    │   ├── domain/         # LoginUseCase, AuthToken entity, AuthRepository interface
+    │   └── presentation/   # LoginRoute, LoginScreen, LoginViewModel, LoginUiState, LoginEvent
+    ├── portfolio/
     │   ├── data/
     │   ├── domain/
     │   └── presentation/
-    │
-    ├── customers/
+    ├── watchlist/
     │   ├── data/
     │   ├── domain/
     │   └── presentation/
-    │
-    └── orders/
-        ├── data/
-        ├── domain/
-        └── presentation/
+    └── settings/
+        └── presentation/   # Simple features with no custom domain/data consume core directly
 ```
 
-Do not create empty abstraction layers without concrete responsibilities.
+#### Standard B: Layer-First Clean Architecture (Standard for Focused / Single-Module Apps like Portly)
+Used in single-module codebases where all data sources, UI screens, and utilities are partitioned cleanly by architectural layer:
+
+```text
+app/src/main/java/com/yourpackage/
+├── data/
+│   ├── local/              # Room database, DAOs, DataStore preferences
+│   ├── remote/             # Retrofit interfaces, DTOs, interceptors, network error parsers
+│   ├── repository/         # Repository implementations (SSOT)
+│   ├── model/              # Domain models, serializable DTOs, request/response objects
+│   └── socket/             # WebSocket clients, real-time live price subscriptions
+│
+├── domain/ (optional)
+│   ├── usecase/            # Multi-repository orchestrators & complex business rules
+│   └── repository/         # Repository interfaces (contracts)
+│
+├── ui/
+│   ├── screen/             # Feature screens (auth/, portfolio/, watchlist/, settings/)
+│   ├── component/          # Reusable design system widgets (buttons, cards, dialogs, shimmer)
+│   ├── navigation/         # Destination, Navigator, NavHandler, NavUtils, Transitions
+│   └── theme/              # Color, Type, Shape, Theme
+│
+├── di/                     # Central Hilt modules (NetworkModule, DatabaseModule, RepositoryModule)
+└── utils/                  # Universal extensions, date/time helpers, logging trees, crypto
+```
+
+#### Why Catch-All `shared/` Folders Are Avoided:
+- Catch-all `shared/` directories inevitably degrade into high-coupling dumping grounds where models, utilities, and UI widgets become tightly intermingled.
+- Partitioning into explicit functional areas (`core/designsystem`, `core/network`, `core/model`, `core/navigation`) preserves clear ownership boundaries, eliminates circular dependencies, and enables seamless modularization into Gradle subprojects when scaling.
+
+---
 
 ---
 
@@ -279,11 +344,17 @@ Do not introduce Room simply because the app has an API.
 
 ---
 
-## Navigation
+## Navigation & Screen Architecture
 
-For multiple screens, use Navigation Compose.
-Keep navigation decisions outside business logic.
-Pass only IDs between destinations (userId, productId) — load data in destination.
+For multiple screens, use Navigation Compose with the decoupled Navigator pattern:
+- **Decoupled Navigation**: ViewModels inject an `@ActivityRetainedScoped Navigator` to emit navigation events via `SharedFlow`. ViewModels never reference `NavController` or Android UI contexts.
+- **Composable Bridge**: Use a root `NavHandler` composable to collect `Navigator` flows and execute commands on `NavController`.
+- **Destination Modeling**: Define static routes with `Screen` and parameterized routes with `DynamicScreen<T>` using `serializableNavType<T>()`.
+- **Forward Arguments**: Pass IDs or concise `@Serializable` args objects. Extract via `savedStateHandle.getArguments<T>()`.
+- **Backward Results**: Child sets results via `previousBackStackEntry.savedStateHandle`. Parent observes via `getStateFlow` and **must immediately remove the key** upon consumption to prevent re-triggering.
+- **Route vs. Screen Separation**: `<Feature>Route` handles VM injection and lifecycle events (`LifecycleEventEffect`); `<Feature>Screen` is stateless and previewable.
+- **Cross-Graph Communication**: Provide `outerNavController` to nested tab graphs for inter-graph state synchronization.
+- **Shared ViewModels**: Use `sharedViewModel<T>()` for multi-step wizards scoped to navigation sub-graphs.
 
 ---
 

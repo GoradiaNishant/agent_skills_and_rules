@@ -3,25 +3,25 @@
 @../skills/kotlin-compose-architect/references/03-architecture-decisions.md
 @../skills/kotlin-compose-architect/references/05-implementation-rules.md
 @05-annotation-standards.md
+@60-navigation.md
 
-## Three-Tier Project Organization & Module Structure
+## Clean Architecture & Modern Android Architecture (MAD) Standards
 
-1. **Three-Tier Project Structure**:
-   - `core/`: Application-wide infrastructural components: dependency injection (`di/`), OkHttp/Retrofit clients & interceptors (`network/`), session management & secure token handling (`session/`), centralized telemetry & timers (`monitoring/`), and global error handling (`errors/`).
-   - `shared/`: Cross-feature components shared across multiple domains:
-     - `data/models/`: Shared DTOs (`UserModel.kt`, `AddressModel.kt`, `PaginationModel.kt`).
-     - `domain/entities/`: Shared domain entities (`User.kt`, `Address.kt`, `PaginatedResult.kt`).
-     - `ui/`: Reusable Compose design system components, buttons, text fields, theme tokens.
-     - `utils/`: Common extensions, formatters, and date/time helpers.
-   - `features/`: Feature-first modular packages (`auth/`, `profile/`, `customers/`, `orders/`). Each feature encapsulates its own `data/`, `domain/`, and `presentation/` layers.
+1. **Modern Android Architecture Layering (MAD Standards)**:
+   - Follow Google's official Guide to App Architecture: **UI Layer**, optional **Domain Layer**, and **Data Layer**.
+   - **Dependencies flow strictly inward**: UI depends on Domain/Data; Domain depends on Data contracts; Data never depends on Domain or UI.
+   - Avoid catch-all `shared/` directories. Use explicit functional boundaries:
+     - **Feature-First**: `core/` (`network/`, `database/`, `datastore/`, `designsystem/`, `model/`, `navigation/`, `common/`) + `features/<feature>/` (`presentation/`, `domain/`, `data/`).
+     - **Layer-First**: `ui/` (`screen/`, `component/`, `navigation/`, `theme/`), `data/` (`remote/`, `local/`, `repository/`, `model/`, `socket/`), `domain/` (`usecase/`, `model/`), `di/`, `utils/`.
 
-2. **Presentation Layer (`features/<name>/presentation/`, `shared/ui/`)**:
-   - Separate route from screen: `<Name>Route` collects `StateFlow` lifecycle-safely and handles navigation events; `<Name>Screen` is stateless and renders `UiState`.
+2. **UI Layer (`presentation/` or `ui/screen/`)**:
+   - Separate route from screen: `<Name>Route` collects `StateFlow` lifecycle-safely and hooks into lifecycles; `<Name>Screen` is stateless and renders `UiState`.
    - ViewModels extend AndroidX `ViewModel`, injected via `@HiltViewModel`.
-   - Unidirectional Data Flow (UDF): ViewModels expose immutable `StateFlow<UiState>` and process events via sealed interfaces.
-   - Do NOT reference data layer classes (Retrofit APIs, Room DAOs, DTOs) directly from Composables or ViewModels.
+   - Constructor injects `Navigator` and `SavedStateHandle` exclusively for navigation, route argument parsing, and result communication.
+   - Unidirectional Data Flow (UDF): ViewModels expose immutable `StateFlow<UiState>` and process events via sealed interfaces (`UiEvent`).
+   - Do NOT reference data layer classes (Retrofit APIs, Room DAOs, DTOs) directly from Composables.
 
-3. **Domain Layer (`domain/`, `features/<name>/domain/`)**:
+3. **Domain Layer (`domain/` or `features/<name>/domain/`)**:
    - Houses pure Kotlin business logic: UseCases, repository interfaces, and clean domain entities.
    - Independent of Android framework dependencies (no `Context`, no UI, no database/network SDKs).
    - UseCases are conditional: create a UseCase when there is a business action, rule, validation, transformation, or multi-repository orchestration. Never create 1-to-1 pass-through UseCases that merely forward a single repository call.
@@ -29,13 +29,13 @@
    - Avoid "God UseCases": group UseCases around distinct, cohesive business operations rather than dumping an entire feature's APIs into a single giant UseCase.
    - Guiding principle: *"Where does this business responsibility belong?"*, not *"How many Use Cases can I create?"* Clean Architecture is about separation of responsibilities, not class count.
 
-4. **Data Layer (`data/`, `features/<name>/data/`)**:
-   - Implements repository interfaces (`<Name>RepositoryImpl`).
+4. **Data Layer (`data/` or `features/<name>/data/`)**:
+   - Implements repository interfaces (`<Name>RepositoryImpl`) acting as the Single Source of Truth (SSOT).
    - Encapsulates remote data sources (Retrofit APIs and serializable DTOs) and local data sources (Room DAOs and DataStore).
    - Maps DTOs and database entities to clean domain models before returning them to upper layers.
    - Wraps network/disk operations into `Result<T>` or `NetworkResult<T>` to ensure graceful error handling.
 
-5. **Dependency Injection (`core/di/`)**:
+5. **Dependency Injection (`di/` or `core/di/`)**:
    - Central Hilt modules (`@Module`, `@InstallIn(SingletonComponent::class)` or `@ViewModelScoped`).
    - Network components (`Retrofit`, `OkHttpClient`, API interfaces) provided in `NetworkModule`.
    - Database components (`RoomDatabase`, DAOs) provided in `DatabaseModule`.
