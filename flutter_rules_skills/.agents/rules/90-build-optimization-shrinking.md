@@ -1,3 +1,13 @@
+---
+name: 90-build-optimization-shrinking
+description: "Code obfuscation, tree shaking, and split-debug-info"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/build.gradle*"
+  - "pubspec.yaml"
+---
+
 # Build Optimization, Obfuscation & Shrinking Rules
 
 @../skills/flutter-architect/references/07-security.md

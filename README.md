@@ -35,10 +35,43 @@ Both Android and Flutter repositories follow Google's official **Modern App Arch
 
 ---
 
+## Central Rule & Skill Manager (`rules_config.json`)
+
+All 47 rules and skills across Android and Flutter are configured and monitored from a single central file:
+[`rules_config.json`](file:///Users/firdos/StudioProjects/agent_skills_and_rules/rules_config.json).
+
+### Interactive Dropdown in your IDE
+Thanks to [`rules_config.schema.json`](file:///Users/firdos/StudioProjects/agent_skills_and_rules/rules_config.schema.json), opening `rules_config.json` in VS Code, Antigravity IDE, Cursor, or JetBrains provides a native **dropdown menu** for the `trigger` property of every rule and skill:
+
+- `always_on` *(Default)*: Rule/skill is always loaded in full context (`alwaysApply: true`, `globs: ["*"]`).
+- `glob`: Loaded selectively when working on matching file patterns (`globs: ["**/*.kt", ...]`).
+- `manual`: Skill or rule loaded on-demand only (`alwaysApply: false`).
+- `disabled`: Rule or skill ignored (`alwaysApply: false`).
+
+### Synchronizing Rules & Skills
+Whenever you select an option from the dropdown or change glob patterns, run the sync engine to automatically update frontmatter across all `.md` and `SKILL.md` files:
+
+```bash
+# One-time sync
+./sync_rules.sh
+
+# Live watch mode (automatically syncs whenever you edit rules_config.json)
+./sync_rules.sh --watch
+
+# Interactive terminal wizard
+./sync_rules.sh --interactive
+```
+
+---
+
 ## Repository Structure
 
 ```text
 agent_skills_and_rules/
+├── rules_config.json              # Central control file for all 47 rules & skills (default: always_on)
+├── rules_config.schema.json       # JSON Schema enabling IDE dropdown menus for trigger options
+├── sync_rules.sh                  # Runner script for syncing (one-time, --watch, --interactive)
+├── sync_rules_config.py           # Core Python synchronization engine
 ├── install.sh                     # Automated one-line installer script
 ├── android_rules_skills/
 │   └── .agents/

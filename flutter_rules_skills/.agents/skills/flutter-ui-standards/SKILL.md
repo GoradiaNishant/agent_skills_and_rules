@@ -1,8 +1,10 @@
 ---
 name: flutter-ui-standards
-description: >-
-  Flutter UI standards, widget composition, design system tokens, theming,
-  responsive layouts, const optimization, and localization best practices.
+description: "Theme tokens, AppButton, AppTextField, and widget rules"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/presentation/**"
 ---
 
 # Flutter UI & Design Standards Skill

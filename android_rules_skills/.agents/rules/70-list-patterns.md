@@ -1,3 +1,13 @@
+---
+name: 70-list-patterns
+description: "LazyColumn, pagination, pull-to-refresh, and search debouncing"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*Screen.kt"
+  - "**/*List*.kt"
+---
+
 # List, Search, & Pagination Rules
 
 @../skills/kotlin-compose-architect/references/10-compose-ui-rules.md

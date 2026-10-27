@@ -1,9 +1,11 @@
 ---
 name: ui-first-mock-api
-description: >-
-  UI-first development workflow with simulated backend repositories, fake data providers,
-  and API contract assumption tracking for Flutter applications. Use when implementing
-  screens and business logic before backend APIs are finalized or ready.
+description: "UI-first development with fake repositories and mock data"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/**"
+  - "**/mock/**"
 ---
 
 # Flutter UI-First Mock API Development Skill

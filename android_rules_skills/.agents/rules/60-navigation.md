@@ -1,3 +1,14 @@
+---
+name: 60-navigation
+description: "Jetpack Compose Navigation, decoupled Navigator, and ViewModel data passing"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/navigation/**"
+  - "**/*Route.kt"
+  - "**/*NavHost*.kt"
+---
+
 # Navigation & Screen-ViewModel Architecture Rules
 
 @../skills/android-navigation-architecture/SKILL.md

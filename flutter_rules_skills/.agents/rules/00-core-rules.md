@@ -1,3 +1,12 @@
+---
+name: 00-core-rules
+description: "Core development rules and workflow requirements"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "*"
+---
+
 # Core Development Rules
 
 @../skills/flutter-architect/SKILL.md

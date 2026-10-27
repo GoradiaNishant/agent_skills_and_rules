@@ -1,3 +1,15 @@
+---
+name: 50-local-storage
+description: "Room SQLite database, DAOs, and DataStore preferences"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/local/**"
+  - "**/database/**"
+  - "**/dao/**"
+  - "**/datastore/**"
+---
+
 # Local Storage Rules
 
 @../skills/kotlin-compose-architect/references/03-architecture-decisions.md

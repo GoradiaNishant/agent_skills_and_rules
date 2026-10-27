@@ -1,9 +1,10 @@
 ---
 name: android-annotation-standards
-description: >-
-  Comprehensive guide and enforcement rules for Android annotations across Kotlin, Jetpack Compose,
-  Hilt/Dagger DI, ViewModel lifecycle, Retrofit/OkHttp, Serialization, Room Database, WorkManager,
-  permissions, and testing. Enforces accurate scoping, stability contracts, and framework metadata.
+description: "Hilt and Compose annotation governance"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
 ---
 
 # Android Annotation Standards Skill

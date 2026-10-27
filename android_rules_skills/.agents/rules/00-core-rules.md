@@ -1,3 +1,12 @@
+---
+name: 00-core-rules
+description: "Primary instructions and workflow requirements"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "*"
+---
+
 # Core Development Rules
 
 @../skills/kotlin-compose-architect/SKILL.md

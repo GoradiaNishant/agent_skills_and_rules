@@ -1,8 +1,10 @@
 ---
 name: flutter-background-execution-scheduling
-description: >-
-  Flutter background execution, multi-threading with Dart Isolates (compute, Isolate.run),
-  persistent background scheduling with Workmanager, and battery-efficient task management.
+description: "Isolate.run, Workmanager, and background tasks"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
 ---
 
 # Flutter Background Execution, Isolates & Scheduling Skill

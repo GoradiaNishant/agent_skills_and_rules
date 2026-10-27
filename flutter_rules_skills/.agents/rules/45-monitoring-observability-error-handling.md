@@ -1,3 +1,12 @@
+---
+name: 45-monitoring-observability-error-handling
+description: "Logging, Sentry/Firebase Crashlytics, and error unions"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
+---
+
 # App Monitoring, Observability & Global Error Handling Rules
 
 @../skills/flutter-monitoring-observability-error-handling/SKILL.md

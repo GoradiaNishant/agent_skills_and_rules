@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rules and Skills Activation Configuration",
+  "description": "Configuration schema for managing always_on, manual, glob, and disabled triggers for agent rules and skills.",
+  "type": "object",
+  "required": ["android", "flutter"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "default_mode": {
+      "$ref": "#/definitions/ActivationMode",
+      "description": "Default trigger mode applied to newly discovered rules/skills."
+    },
+    "options_documentation": {
+      "type": "object",
+      "description": "Explanation of trigger modes"
+    },
+    "android": {
+      "type": "object",
+      "required": ["rules", "skills"],
+      "properties": {
+        "rules": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/RuleOrSkillEntry"
+          }
+        },
+        "skills": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/RuleOrSkillEntry"
+          }
+        }
+      }
+    },
+    "flutter": {
+      "type": "object",
+      "required": ["rules", "skills"],
+      "properties": {
+        "rules": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/RuleOrSkillEntry"
+          }
+        },
+        "skills": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/RuleOrSkillEntry"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActivationMode": {
+      "type": "string",
+      "enum": [
+        "always_on",
+        "manual",
+        "glob",
+        "disabled"
+      ],
+      "default": "always_on",
+      "description": "Select activation mode from dropdown: 'always_on' (always loaded into context), 'manual' (on demand when @mentioned), 'glob' (loads when matching files open), 'disabled' (deactivated)"
+    },
+    "RuleOrSkillEntry": {
+      "type": "object",
+      "required": ["trigger"],
+      "properties": {
+        "trigger": {
+          "$ref": "#/definitions/ActivationMode"
+        },
+        "globs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Glob file patterns matching files that activate this rule/skill when trigger is 'glob'."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the rule or skill purpose."
+        }
+      }
+    }
+  }
+}

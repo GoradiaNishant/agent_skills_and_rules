@@ -1,10 +1,11 @@
 ---
 name: android-navigation-architecture
-description: >-
-  Expert Android Jetpack Compose Navigation & Screen-ViewModel Architecture skill.
-  Enforces strict decoupling where Screen and Route classes NEVER accept NavController
-  or navigation/result callbacks. Navigator and SavedStateHandle are injected directly
-  into ViewModels for all forward/back navigation, argument parsing, and result communication.
+description: "Decoupled navigation, Navigator, and ViewModel data passing"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/navigation/**"
+  - "**/*Route.kt"
 ---
 
 # Android Navigation & Screen-ViewModel Architecture Skill

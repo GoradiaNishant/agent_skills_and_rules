@@ -1,10 +1,11 @@
 ---
 name: flutter-network-session-management
-description: >-
-  Design, review, and implement reusable centralized networking with Dio, API error handling,
-  authentication refresh, session expiration, and global user notifications in Flutter projects.
-  Use when building or modifying API clients, auth/session flows, network error policies,
-  interceptors, or app-wide error messaging.
+description: "Dio interceptors, refresh token auth, and sessions"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/**"
+  - "**/network/**"
 ---
 
 # Flutter Network & Session Management Skill

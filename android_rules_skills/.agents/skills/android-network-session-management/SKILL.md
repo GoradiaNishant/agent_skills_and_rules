@@ -1,10 +1,11 @@
 ---
 name: android-network-session-management
-description: >-
-  Design, review, and implement reusable centralized networking, API error handling,
-  authentication refresh, session expiration, and global user notifications in Android projects.
-  Use when building or modifying API clients, auth/session flows, network error policies,
-  interceptors/authenticators, or app-wide error messaging.
+description: "Retrofit, OkHttp, token auth, and network sessions"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/remote/**"
+  - "**/network/**"
 ---
 
 # Android Network & Session Management Skill

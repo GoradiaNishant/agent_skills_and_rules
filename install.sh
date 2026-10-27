@@ -83,6 +83,12 @@ else
     echo "📦 Extracting .agents to $TARGET_DIR..."
     rm -rf "$TARGET_DIR"
     cp -R "$REMOTE_SOURCE" "$TARGET_DIR"
+    [ -f "${TEMP_DIR}/rules_config.json" ] && cp "${TEMP_DIR}/rules_config.json" "${TEMP_DIR}/rules_config.schema.json" "${TEMP_DIR}/sync_rules_config.py" "$TARGET_DIR/" 2>/dev/null || true
+fi
+
+# Copy rules_config into .agents for standalone control if available locally
+if [ -f "${SCRIPT_DIR}/rules_config.json" ] && [ -d "$TARGET_DIR" ] && [ "$USE_SYMLINK" = false ]; then
+    cp "${SCRIPT_DIR}/rules_config.json" "${SCRIPT_DIR}/rules_config.schema.json" "${SCRIPT_DIR}/sync_rules_config.py" "$TARGET_DIR/" 2>/dev/null || true
 fi
 
 echo "✅ Success! .agents/ installed in $(pwd)."

@@ -1,10 +1,11 @@
 ---
 name: android-background-services-scheduling
-description: >-
-  Architectural decision framework, implementation patterns, and OS-compliance rules for Android
-  background execution, Services (Foreground, Background, Bound), WorkManager, AlarmManager,
-  JobScheduler, Coroutines/Flow, and BroadcastReceivers. Enforces battery efficiency, Doze compliance,
-  process-death survival, and strict Android 12–15+ platform restrictions.
+description: "Background tasks, WorkManager, and Foreground services"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/work/**"
+  - "**/worker/**"
 ---
 
 # Android Background Execution, Services & Scheduling Skill

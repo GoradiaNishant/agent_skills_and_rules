@@ -1,11 +1,10 @@
 ---
 name: flutter-architect
-description: >-
-  Expert Flutter/Dart software architect and implementation agent.
-  Use this skill when the user asks to create, scaffold, design, implement, review, or architect
-  Flutter applications or features. Enforces mandatory two-phase development, structured implementation
-  planning, widget best practices, clean architecture, BLoC/Riverpod state patterns,
-  Dio data layers, build shrinking & obfuscation, and empirical verification.
+description: "Master Flutter/Dart Clean Architecture & implementation agent"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
 ---
 
 # Flutter Project Architect & Development Skill

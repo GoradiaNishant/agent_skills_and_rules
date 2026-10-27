@@ -1,3 +1,12 @@
+---
+name: 05-code-generation-annotations
+description: "Freezed, JsonSerializable, and Injectable governance"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
+---
+
 # Flutter Code Generation & Annotation Rules
 
 @../skills/flutter-code-generation-annotations/SKILL.md

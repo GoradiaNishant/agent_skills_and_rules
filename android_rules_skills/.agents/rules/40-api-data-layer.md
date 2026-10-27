@@ -1,3 +1,15 @@
+---
+name: 40-api-data-layer
+description: "Retrofit, OkHttp, DTOs, network interceptors, and repositories"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/**"
+  - "**/remote/**"
+  - "**/api/**"
+  - "**/dto/**"
+---
+
 # API and Data Layer Rules
 
 @../skills/kotlin-compose-architect/references/03-architecture-decisions.md

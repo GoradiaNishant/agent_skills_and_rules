@@ -1,3 +1,13 @@
+---
+name: 65-notifications-push-management
+description: "Firebase Messaging, local notifications, and payload routing"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/notifications/**"
+  - "**/fcm/**"
+---
+
 # Notification Architecture & Push Management Rules
 
 @../skills/flutter-notifications-push-management/SKILL.md

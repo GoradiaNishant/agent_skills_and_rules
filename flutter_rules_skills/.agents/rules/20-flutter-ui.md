@@ -1,3 +1,14 @@
+---
+name: 20-flutter-ui
+description: "Stateless/Stateful widgets, Design System tokens, and responsive layouts"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/presentation/**"
+  - "**/views/**"
+  - "**/screens/**"
+---
+
 # Flutter UI Rules
 
 @../skills/flutter-ui-standards/SKILL.md

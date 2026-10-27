@@ -1,3 +1,14 @@
+---
+name: 55-background-execution-scheduling
+description: "WorkManager, Foreground Services, and background execution"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/work/**"
+  - "**/worker/**"
+  - "**/service/**"
+---
+
 # Background Execution, Services & Scheduling Rules
 
 @../skills/android-background-services-scheduling/SKILL.md

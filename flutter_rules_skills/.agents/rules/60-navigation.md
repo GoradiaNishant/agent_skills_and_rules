@@ -1,3 +1,13 @@
+---
+name: 60-navigation
+description: "GoRouter, auto_route, and type-safe routing"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/routes/**"
+  - "**/navigation/**"
+---
+
 # Navigation & Routing Rules
 
 @../skills/flutter-network-session-management/SKILL.md

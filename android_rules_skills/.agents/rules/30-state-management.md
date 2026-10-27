@@ -1,3 +1,14 @@
+---
+name: 30-state-management
+description: "MVI and reactive state management (UiState, UiEvent, StateFlow)"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*ViewModel.kt"
+  - "**/*UiState.kt"
+  - "**/*Event.kt"
+---
+
 # State Management Rules
 
 @../skills/kotlin-compose-architect/references/03-architecture-decisions.md

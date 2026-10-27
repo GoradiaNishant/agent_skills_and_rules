@@ -1,10 +1,11 @@
 ---
 name: ui-first-mock-api
-description: >-
-  Specialized skill for building mobile and frontend user interfaces before backend APIs are ready.
-  Enforces contract-first draft design, repository interface abstraction, fake data sources with
-  delay and error simulation, DTO vs Domain model separation, complete UI state modeling
-  (Loading, Content, Empty, Error), DI-based swapping, and API_ASSUMPTIONS.md documentation.
+description: "UI-first development with fake repositories and mock data"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/**"
+  - "**/mock/**"
 ---
 
 # UI-First Development with Mock APIs Skill

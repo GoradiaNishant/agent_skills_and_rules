@@ -1,3 +1,14 @@
+---
+name: 30-state-management
+description: "BLoC, Cubit, and reactive state management"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/bloc/**"
+  - "**/cubit/**"
+  - "**/*state.dart"
+---
+
 # State Management Rules
 
 @../skills/flutter-architect/references/03-architecture-decisions.md

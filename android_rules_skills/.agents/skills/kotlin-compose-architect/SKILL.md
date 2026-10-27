@@ -1,12 +1,10 @@
 ---
 name: kotlin-compose-architect
-description: >-
-  Expert Android/Kotlin/Jetpack Compose software architect and implementation agent.
-  Use this skill when the user asks to create, scaffold, design, implement, review, or architect
-  Android applications or features using Kotlin and Jetpack Compose. Enforces mandatory
-  two-phase development, structured implementation planning, Compose UI best practices,
-  clean architecture, reactive StateFlow/UDF patterns, API & Room data layers, R8 shrinking & minification,
-  and empirical verification.
+description: "End-to-end Kotlin & Jetpack Compose software architect"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
 ---
 
 # Kotlin Compose Project Architect & Development Skill

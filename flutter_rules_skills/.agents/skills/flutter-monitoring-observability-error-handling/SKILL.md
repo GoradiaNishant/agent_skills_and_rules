@@ -1,9 +1,10 @@
 ---
 name: flutter-monitoring-observability-error-handling
-description: >-
-  Centralized application monitoring, structured logging with execution timers, Firebase Crashlytics,
-  analytics tracking, sensitive data redaction, and global error handling in Flutter projects.
-  Use when designing, reviewing, or integrating telemetry, logging, error handling, or analytics.
+description: "AppLogger, Crashlytics, and failure handling"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
 ---
 
 # Flutter Centralized App Monitoring, Observability & Global Error Handling Skill

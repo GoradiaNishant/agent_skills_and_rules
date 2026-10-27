@@ -1,3 +1,13 @@
+---
+name: 90-build-optimization-shrinking
+description: "R8 minification, ProGuard rules, and build optimization"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/proguard-rules.pro"
+  - "**/build.gradle*"
+---
+
 # Build Optimization, Shrinking & Minification Rules
 
 @../skills/kotlin-compose-architect/references/15-build-shrinking-optimization.md

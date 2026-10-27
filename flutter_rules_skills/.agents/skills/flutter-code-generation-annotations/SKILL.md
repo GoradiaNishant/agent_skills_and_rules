@@ -1,8 +1,10 @@
 ---
 name: flutter-code-generation-annotations
-description: >-
-  Standardized annotations, code generation practices, and immutability rules for Flutter
-  and Dart projects. Covers Freezed, JsonSerializable, Injectable, build_runner, and clean data contracts.
+description: "Freezed, JsonSerializable, and code generation"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
 ---
 
 # Flutter Code Generation & Annotation Standards Skill

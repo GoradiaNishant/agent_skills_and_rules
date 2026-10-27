@@ -1,3 +1,12 @@
+---
+name: 05-annotation-standards
+description: "Framework & annotation governance (Hilt, Compose UI)"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
+---
+
 # Android Annotation Standards Rules
 
 @../skills/android-annotation-standards/SKILL.md

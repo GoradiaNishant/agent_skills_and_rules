@@ -1,9 +1,10 @@
 ---
 name: android-monitoring-observability-error-handling
-description: >-
-  Centralized application monitoring, structured logging with execution timers, Firebase Crashlytics,
-  analytics tracking, sensitive data redaction, and global error handling in Android projects.
-  Use when designing, reviewing, or integrating telemetry, logging, error handling, or analytics.
+description: "Telemetry, logging, and error handling patterns"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
 ---
 
 # Android Centralized App Monitoring, Observability & Global Error Handling Skill

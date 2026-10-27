@@ -1,3 +1,12 @@
+---
+name: 45-monitoring-observability-error-handling
+description: "Centralized logging, error handling, and performance tracking"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
+---
+
 # App Monitoring, Observability & Global Error Handling Rules
 
 @../skills/android-monitoring-observability-error-handling/SKILL.md

@@ -1,11 +1,10 @@
 ---
-name: android-git-workflow
-description: >-
-  Git branching, commit, and contribution workflow for Android/Kotlin projects.
-  Use this skill when the user asks to create a branch, write a commit message,
-  push changes, create a Pull Request, review a git diff or status, merge a branch,
-  or when starting any new development task. This skill enforces consistent
-  branch naming, commit format, PR structure, and engineering Git discipline.
+name: git-workflow
+description: "Git commit, branch, and PR workflows"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "*"
 ---
 
 # Android Git & Contribution Workflow

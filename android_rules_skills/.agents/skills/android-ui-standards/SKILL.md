@@ -1,6 +1,10 @@
 ---
 name: android-ui-standards
-description: Enforces Jetpack Compose UI, Material 3 styling, layout padding, typography, color scheme tokens, icon helpers, and spacing standards across all presentation screens and components.
+description: "Compose UI tokens, components, and layout architecture"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/ui/**"
 ---
 
 # Android Compose UI & Code Standardization Skill

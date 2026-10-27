@@ -1,3 +1,12 @@
+---
+name: 10-project-architecture
+description: "Clean Architecture and layer separation in Flutter"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.dart"
+---
+
 # Project Architecture Rules
 
 @../skills/flutter-architect/references/03-architecture-decisions.md

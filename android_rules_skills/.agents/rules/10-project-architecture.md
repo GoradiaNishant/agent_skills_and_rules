@@ -1,3 +1,13 @@
+---
+name: 10-project-architecture
+description: "Clean Architecture & Modern Android Architecture (MAD) standards"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*.kt"
+  - "**/build.gradle*"
+---
+
 # Project Architecture & Module Structure
 
 @../skills/kotlin-compose-architect/references/03-architecture-decisions.md

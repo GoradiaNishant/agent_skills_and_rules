@@ -1,3 +1,13 @@
+---
+name: 65-notifications-push-management
+description: "FCM push notifications, channels, and deep linking"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/fcm/**"
+  - "**/notifications/**"
+---
+
 # Notification Architecture & Push Management Rules
 
 @../skills/android-notifications-push-management/SKILL.md

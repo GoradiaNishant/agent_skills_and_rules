@@ -1,3 +1,12 @@
+---
+name: 80-testing-validation
+description: "Unit tests, widget tests, and integration tests"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "test/**"
+---
+
 # Testing and Quality Validation Rules
 
 @../skills/flutter-architect/references/03-architecture-decisions.md

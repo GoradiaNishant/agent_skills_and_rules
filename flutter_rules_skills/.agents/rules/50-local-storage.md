@@ -1,3 +1,14 @@
+---
+name: 50-local-storage
+description: "Drift (Moor), Hive, and shared_preferences storage"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/local/**"
+  - "**/storage/**"
+  - "**/database/**"
+---
+
 # Local Storage & Caching Rules
 
 @../skills/flutter-architect/references/07-security.md

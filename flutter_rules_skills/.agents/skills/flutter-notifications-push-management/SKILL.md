@@ -1,8 +1,10 @@
 ---
 name: flutter-notifications-push-management
-description: >-
-  Flutter push notification architecture, Firebase Cloud Messaging (FCM),
-  local notifications, foreground/background lifecycle, deep linking, and permission management.
+description: "FCM setup, notification channels, and deep linking"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/notifications/**"
 ---
 
 # Flutter Notification Architecture & Push Management Skill

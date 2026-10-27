@@ -1,9 +1,11 @@
 ---
 name: android-notifications-push-management
-description: >-
-  Comprehensive architecture, implementation patterns, and OS-compliance rules for Android local
-  notifications, remote push notifications (FCM), notification channels, runtime permissions (Android 13+),
-  deep link navigation, lock-screen privacy, and background/cold-start delivery lifecycle.
+description: "Push notifications, channels, and deep link intents"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/fcm/**"
+  - "**/notifications/**"
 ---
 
 # Android Notification Architecture, Push Notifications & Notification Management Skill

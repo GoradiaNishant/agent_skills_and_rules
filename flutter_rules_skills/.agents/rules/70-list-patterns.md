@@ -1,3 +1,13 @@
+---
+name: 70-list-patterns
+description: "ListView.builder, pagination, and refresh indicators"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/widgets/**"
+  - "**/views/**"
+---
+
 # List, Search & Pagination Patterns
 
 @../skills/flutter-ui-standards/SKILL.md

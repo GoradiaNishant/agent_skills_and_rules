@@ -1,3 +1,13 @@
+---
+name: 40-api-data-layer
+description: "Dio, Retrofit for Dart, DTOs, and repository implementations"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/data/**"
+  - "**/repositories/**"
+---
+
 # API and Data Layer Rules
 
 @../skills/flutter-network-session-management/SKILL.md

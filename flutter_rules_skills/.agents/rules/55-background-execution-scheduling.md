@@ -1,3 +1,13 @@
+---
+name: 55-background-execution-scheduling
+description: "Workmanager, background isolates, and tasks"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/background/**"
+  - "**/services/**"
+---
+
 # Background Execution & Scheduling Rules
 
 @../skills/flutter-background-execution-scheduling/SKILL.md

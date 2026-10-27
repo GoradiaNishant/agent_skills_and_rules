@@ -1,3 +1,14 @@
+---
+name: 20-compose-ui
+description: "Jetpack Compose UI rules, UDF, and preview standards"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/*Screen.kt"
+  - "**/*Route.kt"
+  - "**/ui/**"
+---
+
 # Jetpack Compose UI Conventions
 
 @../skills/kotlin-compose-architect/references/10-compose-ui-rules.md

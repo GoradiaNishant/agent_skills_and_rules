@@ -1,0 +1,257 @@
+{
+  "$schema": "./rules_config.schema.json",
+  "default_mode": "always_on",
+  "options_documentation": {
+    "always_on": "Injected into context unconditionally for every prompt (alwaysApply: true).",
+    "manual": "Injected only when explicitly requested, @mentioned, or decided on-demand.",
+    "glob": "Injected automatically whenever active or edited files match the defined glob patterns.",
+    "disabled": "Completely deactivated and ignored."
+  },
+  "android": {
+    "rules": {
+      "00-core-rules": {
+        "trigger": "always_on",
+        "globs": ["*"],
+        "description": "Primary instructions and workflow requirements"
+      },
+      "05-annotation-standards": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt"],
+        "description": "Framework & annotation governance (Hilt, Compose UI)"
+      },
+      "10-project-architecture": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt", "**/build.gradle*"],
+        "description": "Clean Architecture & Modern Android Architecture (MAD) standards"
+      },
+      "20-compose-ui": {
+        "trigger": "always_on",
+        "globs": ["**/*Screen.kt", "**/*Route.kt", "**/ui/**"],
+        "description": "Jetpack Compose UI rules, UDF, and preview standards"
+      },
+      "30-state-management": {
+        "trigger": "always_on",
+        "globs": ["**/*ViewModel.kt", "**/*UiState.kt", "**/*Event.kt"],
+        "description": "MVI and reactive state management (UiState, UiEvent, StateFlow)"
+      },
+      "40-api-data-layer": {
+        "trigger": "always_on",
+        "globs": ["**/data/**", "**/remote/**", "**/api/**", "**/dto/**"],
+        "description": "Retrofit, OkHttp, DTOs, network interceptors, and repositories"
+      },
+      "45-monitoring-observability-error-handling": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt"],
+        "description": "Centralized logging, error handling, and performance tracking"
+      },
+      "50-local-storage": {
+        "trigger": "always_on",
+        "globs": ["**/local/**", "**/database/**", "**/dao/**", "**/datastore/**"],
+        "description": "Room SQLite database, DAOs, and DataStore preferences"
+      },
+      "55-background-execution-scheduling": {
+        "trigger": "always_on",
+        "globs": ["**/work/**", "**/worker/**", "**/service/**"],
+        "description": "WorkManager, Foreground Services, and background execution"
+      },
+      "60-navigation": {
+        "trigger": "always_on",
+        "globs": ["**/navigation/**", "**/*Route.kt", "**/*NavHost*.kt"],
+        "description": "Jetpack Compose Navigation, decoupled Navigator, and ViewModel data passing"
+      },
+      "65-notifications-push-management": {
+        "trigger": "always_on",
+        "globs": ["**/fcm/**", "**/notifications/**"],
+        "description": "FCM push notifications, channels, and deep linking"
+      },
+      "70-list-patterns": {
+        "trigger": "always_on",
+        "globs": ["**/*Screen.kt", "**/*List*.kt"],
+        "description": "LazyColumn, pagination, pull-to-refresh, and search debouncing"
+      },
+      "80-testing-validation": {
+        "trigger": "always_on",
+        "globs": ["**/test/**", "**/androidTest/**"],
+        "description": "Unit testing, Compose UI testing, and verification commands"
+      },
+      "90-build-optimization-shrinking": {
+        "trigger": "always_on",
+        "globs": ["**/proguard-rules.pro", "**/build.gradle*"],
+        "description": "R8 minification, ProGuard rules, and build optimization"
+      }
+    },
+    "skills": {
+      "android-annotation-standards": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt"],
+        "description": "Hilt and Compose annotation governance"
+      },
+      "android-background-services-scheduling": {
+        "trigger": "always_on",
+        "globs": ["**/work/**", "**/worker/**"],
+        "description": "Background tasks, WorkManager, and Foreground services"
+      },
+      "android-monitoring-observability-error-handling": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt"],
+        "description": "Telemetry, logging, and error handling patterns"
+      },
+      "android-navigation-architecture": {
+        "trigger": "always_on",
+        "globs": ["**/navigation/**", "**/*Route.kt"],
+        "description": "Decoupled navigation, Navigator, and ViewModel data passing"
+      },
+      "android-network-session-management": {
+        "trigger": "always_on",
+        "globs": ["**/data/remote/**", "**/network/**"],
+        "description": "Retrofit, OkHttp, token auth, and network sessions"
+      },
+      "android-notifications-push-management": {
+        "trigger": "always_on",
+        "globs": ["**/fcm/**", "**/notifications/**"],
+        "description": "Push notifications, channels, and deep link intents"
+      },
+      "android-ui-standards": {
+        "trigger": "always_on",
+        "globs": ["**/ui/**"],
+        "description": "Compose UI tokens, components, and layout architecture"
+      },
+      "git-workflow": {
+        "trigger": "always_on",
+        "globs": ["*"],
+        "description": "Git commit, branch, and PR workflows"
+      },
+      "kotlin-compose-architect": {
+        "trigger": "always_on",
+        "globs": ["**/*.kt"],
+        "description": "End-to-end Kotlin & Jetpack Compose software architect"
+      },
+      "ui-first-mock-api": {
+        "trigger": "always_on",
+        "globs": ["**/data/**", "**/mock/**"],
+        "description": "UI-first development with fake repositories and mock data"
+      }
+    }
+  },
+  "flutter": {
+    "rules": {
+      "00-core-rules": {
+        "trigger": "always_on",
+        "globs": ["*"],
+        "description": "Core development rules and workflow requirements"
+      },
+      "05-code-generation-annotations": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Freezed, JsonSerializable, and Injectable governance"
+      },
+      "10-project-architecture": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Clean Architecture and layer separation in Flutter"
+      },
+      "20-flutter-ui": {
+        "trigger": "always_on",
+        "globs": ["**/presentation/**", "**/views/**", "**/screens/**"],
+        "description": "Stateless/Stateful widgets, Design System tokens, and responsive layouts"
+      },
+      "30-state-management": {
+        "trigger": "always_on",
+        "globs": ["**/bloc/**", "**/cubit/**", "**/*state.dart"],
+        "description": "BLoC, Cubit, and reactive state management"
+      },
+      "40-api-data-layer": {
+        "trigger": "always_on",
+        "globs": ["**/data/**", "**/repositories/**"],
+        "description": "Dio, Retrofit for Dart, DTOs, and repository implementations"
+      },
+      "45-monitoring-observability-error-handling": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Logging, Sentry/Firebase Crashlytics, and error unions"
+      },
+      "50-local-storage": {
+        "trigger": "always_on",
+        "globs": ["**/local/**", "**/storage/**", "**/database/**"],
+        "description": "Drift (Moor), Hive, and shared_preferences storage"
+      },
+      "55-background-execution-scheduling": {
+        "trigger": "always_on",
+        "globs": ["**/background/**", "**/services/**"],
+        "description": "Workmanager, background isolates, and tasks"
+      },
+      "60-navigation": {
+        "trigger": "always_on",
+        "globs": ["**/routes/**", "**/navigation/**"],
+        "description": "GoRouter, auto_route, and type-safe routing"
+      },
+      "65-notifications-push-management": {
+        "trigger": "always_on",
+        "globs": ["**/notifications/**", "**/fcm/**"],
+        "description": "Firebase Messaging, local notifications, and payload routing"
+      },
+      "70-list-patterns": {
+        "trigger": "always_on",
+        "globs": ["**/widgets/**", "**/views/**"],
+        "description": "ListView.builder, pagination, and refresh indicators"
+      },
+      "80-testing-validation": {
+        "trigger": "always_on",
+        "globs": ["test/**"],
+        "description": "Unit tests, widget tests, and integration tests"
+      },
+      "90-build-optimization-shrinking": {
+        "trigger": "always_on",
+        "globs": ["**/build.gradle*", "pubspec.yaml"],
+        "description": "Code obfuscation, tree shaking, and split-debug-info"
+      }
+    },
+    "skills": {
+      "flutter-architect": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Master Flutter/Dart Clean Architecture & implementation agent"
+      },
+      "flutter-background-execution-scheduling": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Isolate.run, Workmanager, and background tasks"
+      },
+      "flutter-code-generation-annotations": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "Freezed, JsonSerializable, and code generation"
+      },
+      "flutter-monitoring-observability-error-handling": {
+        "trigger": "always_on",
+        "globs": ["**/*.dart"],
+        "description": "AppLogger, Crashlytics, and failure handling"
+      },
+      "flutter-network-session-management": {
+        "trigger": "always_on",
+        "globs": ["**/data/**", "**/network/**"],
+        "description": "Dio interceptors, refresh token auth, and sessions"
+      },
+      "flutter-notifications-push-management": {
+        "trigger": "always_on",
+        "globs": ["**/notifications/**"],
+        "description": "FCM setup, notification channels, and deep linking"
+      },
+      "flutter-ui-standards": {
+        "trigger": "always_on",
+        "globs": ["**/presentation/**"],
+        "description": "Theme tokens, AppButton, AppTextField, and widget rules"
+      },
+      "git-workflow": {
+        "trigger": "always_on",
+        "globs": ["*"],
+        "description": "Git commit, branch, and PR workflows"
+      },
+      "ui-first-mock-api": {
+        "trigger": "always_on",
+        "globs": ["**/data/**", "**/mock/**"],
+        "description": "UI-first development with fake repositories and mock data"
+      }
+    }
+  }
+}

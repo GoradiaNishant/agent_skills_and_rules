@@ -1,3 +1,13 @@
+---
+name: 80-testing-validation
+description: "Unit testing, Compose UI testing, and verification commands"
+trigger: always_on
+alwaysApply: true
+globs:
+  - "**/test/**"
+  - "**/androidTest/**"
+---
+
 # Testing & Validation Rules
 
 @../skills/kotlin-compose-architect/references/08-testing-policy.md
