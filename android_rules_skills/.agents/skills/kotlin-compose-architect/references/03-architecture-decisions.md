@@ -428,3 +428,75 @@ Instead of mixing everything into global flat folders:
 ```
 screens/   viewmodels/   repositories/   models/
 ```
+
+---
+
+## State Survival & Persistence Matrix
+
+When choosing how and where to store state in Android, consult this lifecycle survival matrix:
+
+| Storage Mechanism | Survives Recomposition? | Survives Configuration Change (Rotation)? | Survives System Process Death? | Survives App Restart / Reboot? | Typical Use Case |
+|---|---|---|---|---|---|
+| **Local Variable (`var count = 0`)** | ❌ No (re-initialized) | ❌ No | ❌ No | ❌ No | Ephemeral calculation inside a function. |
+| **`remember { mutableStateOf(...) }`** | ✅ Yes | ❌ No | ❌ No | ❌ No | Transient UI state (e.g. accordion expansion, cursor position, focused field). |
+| **`rememberSaveable { mutableStateOf(...) }`** | ✅ Yes | ✅ Yes | ✅ Yes (if Bundle/Parcelable) | ❌ No | Screen-local UI state that must survive rotation and brief app suspension (e.g. draft form text, scroll offsets). |
+| **`ViewModel` (`StateFlow`)** | ✅ Yes | ✅ Yes | ❌ No | ❌ No | Feature state, fetched data models, pagination state, UI-action coordination. |
+| **`SavedStateHandle`** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No | Restoring query parameters, selected item IDs, or transient data after process death. |
+| **DataStore / Room Database** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | Persistent business entities, user authentication tokens, offline caching, settings. |
+
+---
+
+## ViewModel Lifecycle & Memory Leak Prevention
+
+A common architectural vulnerability in Android is leaking the `Activity` or view hierarchy through the `ViewModel`.
+
+### 1. The Root Cause
+A `ViewModel` instance is tied to the `ViewModelStoreOwner` (e.g. Activity or NavBackStackEntry) and **outlives the Activity across configuration changes** (such as screen rotation, keyboard open/close, dark mode toggle):
+1. User rotates device $\rightarrow$ `Activity.onDestroy()` is called, and a new `Activity` instance is created via `Activity.onCreate()`.
+2. The `ViewModel` is **retained** by the Android framework.
+3. If the ViewModel holds a reference to the old `Activity`, `View`, `Context`, or an anonymous callback capturing them, the entire destroyed Activity, its Window, Views, and large Bitmaps cannot be garbage collected $\rightarrow$ **Massive Memory Leak**.
+
+### 2. Prevention Rules
+- **Never store `Activity` references in a ViewModel**:
+  ```kotlin
+  // ❌ ANTI-PATTERN: Fatal memory leak
+  class ProfileViewModel : ViewModel() {
+      var activity: Activity? = null // NEVER DO THIS
+  }
+  ```
+- **Never hold Composable Views or Contexts**: If a context is strictly required (e.g. accessing system services or checking connectivity), inject `@ApplicationContext context: Context` via Hilt.
+- **What is Safe in a ViewModel**:
+  - Repositories, UseCases, Interactors.
+  - Injected `@ApplicationContext` (Application singleton, never destroyed during process lifecycle).
+  - `SavedStateHandle` for restoring query state after process recreation.
+  - `CoroutineScope` (`viewModelScope`, automatically cancelled in `onCleared()`).
+- **Investigating Leaks**:
+  - **LeakCanary**: Integrates into debug builds and automatically analyzes memory heap dumps on Activity destruction, producing actionable reference chains.
+  - **Android Studio Memory Profiler**: Capture Heap Dumps and filter by "Allocations" and "Leaked Activities" to inspect GC root reference chains.
+
+---
+
+## Kotlin Multiplatform (KMM / KMP) Architecture Standards
+
+For projects sharing code across Android and iOS using Kotlin Multiplatform:
+
+### 1. Source Set Separation & Responsibilities
+- **`commonMain` (Shared Core)**:
+  - Domain models, entities, and validation rules.
+  - Repository interfaces and implementations.
+  - Business logic, UseCases, and state reducers.
+  - Cross-platform networking using **Ktor HTTP Client** (engine injected per platform).
+  - Reactive streams using Kotlin Coroutines & `Flow`.
+- **`androidMain` & `iosMain` (Platform-Specific Adapters)**:
+  - Hardware integrations: Bluetooth Low Energy (BLE), Camera, Biometrics, Sensors.
+  - Platform storage: Android DataStore/Room vs iOS `NSUserDefaults`/Keychain.
+  - Platform dispatchers: Inject dispatchers; never hardcode platform-specific dispatchers in `commonMain`.
+
+### 2. Swift / iOS Interoperability & Reactive Streams
+- Swift cannot natively consume Kotlin `Flow` directly like Kotlin code does.
+- **Recommended Interop Libraries**:
+  - **SKIE**: Generates Swift-friendly Swift Async/Await interfaces and native Swift Enums from Kotlin sealed classes and Flows.
+  - **KMP-NativeCoroutines**: Bridges Kotlin Coroutines and Flows into Swift `AsyncSequence` and Combine `AnyPublisher`.
+- **Task Cancellation Propagation**:
+  - Ensure the Swift-to-Kotlin bridge propagates cancellation: when a Swift `Task` is cancelled, the underlying Kotlin coroutine `Job` must be cancelled to avoid orphaned network or background processing on iOS.
+

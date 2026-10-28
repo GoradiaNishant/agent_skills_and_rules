@@ -601,6 +601,41 @@ rotation · configuration changes · failure/recovery · hardware behavior.
 
 ---
 
+## Compose Rendering Pipeline, Stability & Recomposition Optimization
+
+### 1. The Three Phases of Compose
+Every frame rendered by Compose transitions through three distinct phases:
+1. **Composition (What to show)**: Runs Composable functions to construct or update the Composable tree description.
+2. **Layout (Where to place it)**: Measures children and places them within 2D constraints.
+3. **Drawing (How to render it)**: Draws pixels to the canvas/screen.
+
+> **Key Rule**: Avoid triggering Phase 1 (Composition) if the change only affects Phase 2 (Layout) or Phase 3 (Drawing). Use lambda-based modifiers (`Modifier.offset { ... }`, `Modifier.graphicsLayer { ... }`) to defer reading state until the layout or draw phase, skipping recomposition entirely during high-frequency animations or scrolling.
+
+### 2. Difference Between Recomposition, Relayout, and Repaint
+- **Recomposition**: Re-executing Composable functions when snapshot state changes. If a Composable's parameters have not changed and are **stable**, Compose skips recomposition.
+- **Relayout**: Measuring and positioning elements. A recomposition might not cause a relayout if dimensions don't change.
+- **Repaint / Redraw**: Drawing pixels onto the display. Changing an alpha or offset in `graphicsLayer` only repaints without recomposition or relayout.
+
+### 3. Stability & Unstable Parameter Mitigation
+Compose determines whether a Composable can be skipped based on parameter stability:
+- **Stable Types**: Primitives (`Int`, `String`, etc.), functional types (`() -> Unit`), types annotated with `@Immutable` or `@Stable`.
+- **Unstable Types**: Standard collection interfaces (`List<T>`, `Set<T>`, `Map<T>`) because the Kotlin runtime does not guarantee immutability (an underlying mutable list could be passed).
+- **Techniques to Prevent Unnecessary Recompositions**:
+  1. Use **`kotlinx.collections.immutable.ImmutableList<T>`** or **`PersistentList<T>`** in `UiState`.
+  2. Annotate UI models with `@Immutable` or `@Stable` when all public properties are immutable `val`s.
+  3. Avoid instantiating new lambda instances inline inside list items; use method references or hoist callbacks.
+
+### 4. Stable Keys in Lazy Layouts
+- Always provide an explicit, unique, and stable key for `LazyColumn`, `LazyRow`, and `LazyVerticalGrid` items:
+  ```kotlin
+  items(items = state.items, key = { item -> item.id }) { item ->
+      ItemRow(item = item)
+  }
+  ```
+- Without stable keys, adding, removing, or reordering an item forces Compose to recompose every single visible row because items are matched by position index rather than semantic identity.
+
+---
+
 ## Golden Rule
 
 > Write the **simplest correct Compose implementation** that remains reliable under

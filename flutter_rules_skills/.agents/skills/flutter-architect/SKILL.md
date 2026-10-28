@@ -48,3 +48,6 @@ Every development task must follow this strict two-phase sequence:
 - [references/07-security.md](./references/07-security.md)
 - [references/10-flutter-ui-rules.md](./references/10-flutter-ui-rules.md)
 - [references/13-api-data-patterns.md](./references/13-api-data-patterns.md)
+- [references/14-concurrency-isolates-native-interop.md](./references/14-concurrency-isolates-native-interop.md)
+- [references/15-memory-leaks-performance-profiling.md](./references/15-memory-leaks-performance-profiling.md)
+
